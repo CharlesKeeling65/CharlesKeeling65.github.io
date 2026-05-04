@@ -2,7 +2,7 @@ import type { Props } from "astro";
 import IconMail from "@/assets/icons/IconMail.svg";
 import IconGitHub from "@/assets/icons/IconGitHub.svg";
 import IconBrandX from "@/assets/icons/IconBrandX.svg";
-import IconLinkedin from "@/assets/icons/IconLinkedin.svg";
+import IconResearchGate from "@/assets/icons/IconResearchGate.svg";
 import IconWhatsapp from "@/assets/icons/IconWhatsapp.svg";
 import IconFacebook from "@/assets/icons/IconFacebook.svg";
 import IconTelegram from "@/assets/icons/IconTelegram.svg";
@@ -25,15 +25,15 @@ export const SOCIALS: Social[] = [
   },
   {
     name: "X",
-    href: "https://x.com/CharlesKeeling65",
+    href: "https://x.com/CharlesKeelin11",
     linkTitle: `${SITE.title} on X`,
     icon: IconBrandX,
   },
   {
-    name: "LinkedIn",
-    href: "https://www.linkedin.com/in/charles-keeling/",
-    linkTitle: `${SITE.title} on LinkedIn`,
-    icon: IconLinkedin,
+    name: "ResearchGate",
+    href: "https://www.researchgate.net/profile/Yubo-Wang-51?ev=prf_overview",
+    linkTitle: `${SITE.title} on ResearchGate`,
+    icon: IconResearchGate,
   },
   {
     name: "Mail",
