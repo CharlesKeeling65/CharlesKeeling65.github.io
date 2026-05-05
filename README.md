@@ -1,92 +1,118 @@
-# Wang Yubo (王昱博) - 个人博客与求职作品集
+# 🚀 Wang Yubo (王昱博) - 个人品牌数字枢纽 (VibeUI x Twilight Edition)
 
-这是一个基于 **AstroPaper** 深度定制的个人博客与学术/求职主页。本项目不仅是一个静态博客，更是你展示学术科研成果、项目经历和日常学习笔记的核心数字枢纽。
-
----
-
-## 🧭 代码结构与网站UI对应指南
-
-为了方便你后续进行个性化修改和开发，以下是当前代码库核心文件与网站页面实际效果的一一对应关系：
-
-### 1. 全局配置 (Global Settings)
-- **`src/config.ts`** ➡️ **全站基础设置**
-  - 控制网站的标题 (Title)、作者 (Author)、SEO 描述。
-  - 设置每页显示的文章数量 (`postPerPage`) 和明暗主题支持 (`lightAndDarkMode`)。
-- **`src/constants.ts`** ➡️ **社交链接与分享 (Social Links)**
-  - 控制首页和页脚显示的社交媒体图标（如 GitHub, X, ResearchGate 等）。
-
-### 2. 核心页面 (Pages & UI)
-- **`src/pages/index.astro`** ➡️ **网站首页 (Homepage)**
-  - 包含你的英文自我介绍（Hero 区域）。
-  - **Career Highlights** 模块：展示 Education (教育)、Projects (项目)、Research (科研) 的模块化卡片。
-  - Featured / Recent Posts 列表。
-- **`src/pages/about.md`** ➡️ **关于页面 (/about)**
-  - 你详细的中英文自我介绍、教育背景和研究兴趣列表。
-- **`src/components/Header.astro`** ➡️ **顶部导航栏 (Navbar)**
-  - 定义了全站顶部的导航菜单项（Posts, Notes, Tags, About 等）。
-- **`src/pages/notes.astro`** ➡️ **学习笔记聚合页 (/notes)**
-  - 自动抓取并展示所有包含 `notes` 标签（tag）的文章。
-
-### 3. 内容与文章 (Content)
-- **`src/data/blog/`** ➡️ **Markdown 存放目录**
-  - 这是所有文章、笔记存放的核心目录。你可以将其作为本地 Obsidian 库的目录，直接进行无缝写作。
+这是一个基于 **AstroPaper** 框架，融合了 **Twilight** 的三栏华丽布局与 **VibeUI (Claude 风格)** 温暖人文设计美学的深度定制博客系统。它不仅是一个内容发布平台，更是你作为南京大学环境科学研究生在 AI × 环境领域学术研究、项目成果和学习笔记的**高阶展示枢纽**。
 
 ---
 
-## 📝 写作与发布指南 (结合 Obsidian)
+## 🎨 设计哲学与视觉规范
 
-本博客采用 Markdown 驱动，非常适合与 Obsidian 联动。
+本项目遵循 **`DESIGN.md`** 中定义的视觉准则：
+- **人文气息**：采用皮纸色背景 (`#f5f4ed`) 与衬线体标题，营造如文学杂志般的阅读感。
+- **三栏式布局**：参考 Twilight 主题，将信息分为 **“身份与导航”**、**“核心内容”** 与 **“动态数据”** 三个维度。
+- **微光感 (Glassmorphism)**：所有容器均采用半透明毛玻璃背景、微弱边框 (`ring-1`) 与柔和投影，确保 UI 简约而极具质感。
+- **胶囊化信息层级**：日期、标签均采用 Pills 设计，强化信息的视觉区分度。
 
-### 撰写新文章或笔记
-在 `src/data/blog/` 下创建 Markdown 文件。文件顶部必须包含 **YAML Frontmatter**：
+---
 
+## 🧭 代码结构与网站 UI 深度映射图
+
+为了方便后续维护，以下是文件目录与网页实际模块的精准对应关系：
+
+### 1. 首页 (Homepage) - `src/pages/index.astro`
+首页现在被重构为标准的 **三栏式 Grid 布局**：
+- **左侧栏 (Left Sidebar)**:
+    - `Profile Card`: 展示头像、姓名及社交链接。
+    - `Directory`: 自动计数的导航菜单（关联 `sortedPosts.length`）。
+    - `Tag Cloud`: 展示最热门的 10 个分类标签（由 `src/utils/getUniqueTags.ts` 生成）。
+- **中间主内容区 (Center Content)**:
+    - `Hero Area`: 采用渐变文字的身份介绍。
+    - `Career Highlights`: 模块化卡片（Education, Projects, Research）。
+    - `Post Lists`: 推荐与最新文章列表（调用 `src/components/Card.astro`）。
+- **右侧栏 (Right Sidebar)**:
+    - `Announcement`: 顶部的动态公告模块。
+    - `Activity Heatmap`: **[NEW]** 位于 `src/components/Heatmap.astro`，自动扫描本地 Markdown 并在侧边栏绘制 52 周发布热图。
+    - `Statistics`: 全站数据统计面板。
+
+### 2. 列表页 (List Pages) - Timeline Style
+- **`src/pages/posts/` & `src/pages/notes.astro`**:
+    - 采用了 **Twilight 轴线布局**。在 `<ul>` 容器上增加了 `border-l` 装饰线。
+    - 列表项左侧通过绝对定位生成的 `Timeline Dot`（圆点）营造时间轴美感。
+
+### 3. 组件库 (Shared Components)
+- **`src/components/Header.astro`**: 重构为 `sticky` 悬浮毛玻璃导航，包含搜索和主题切换。
+- **`src/components/Tag.astro`**: 已升级为 VibeUI 胶囊样式，支持 `sm` 尺寸。
+- **`src/components/Datetime.astro`**: 升级为带日历图标的 Pills 样式。
+- **`src/components/Card.astro`**: 核心内容卡片，增加了 Hover 时的 `translate-y` 位移效果。
+
+---
+
+## 🛠️ 环境搭建与开发流程
+
+### 1. 基础设置
+- 修改 **`src/config.ts`**：设置全站 `SITE` 名称、SEO 描述、每页数量。
+- 修改 **`src/constants.ts`**：配置你的 GitHub, ResearchGate, X 等社交链接。
+- 修改 **`src/styles/global.css`**：在 `:root` 中调整 `--accent` 颜色（当前为学术蓝/陶土红）。
+
+### 2. 本地开发
+```bash
+# 安装依赖
+npm install
+
+# 启动开发服务器（支持 HMR 热更新）
+npm run dev
+```
+访问 `http://localhost:4321` 即可实时预览。
+
+### 3. 部署发布
+项目已配置 GitHub Pages 自动构建：
+```bash
+git add .
+git commit -m "feat: new content or style update"
+git push
+```
+
+---
+
+## 🖋️ 内容创作指南 (Obsidian 深度集成)
+
+`src/data/blog/` 目录即为你的内容库，建议直接将其作为 Obsidian 的一个子文件夹。
+
+### YAML 标准配置
+所有 Markdown 文件开头必须包含以下元数据：
 ```yaml
 ---
-title: "你的文章/笔记标题"
-pubDatetime: 2024-05-04T15:00:00Z  # 发布时间
+title: "文章标题"
+pubDatetime: 2024-05-05T12:00:00Z
 tags:
-  - notes      # ⭐️ 只要包含 notes 标签，就会自动进入顶部导航的 Notes 专栏
-  - ai         # 其他自定义分类标签
-description: "这篇文章的简短描述，会展示在列表页和用于 SEO。"
-featured: false # 如果设置为 true，将会在首页推荐展示
-draft: false   # 如果设置为 true，则仅在本地可见，不会线上发布
+  - notes      # ⭐️ 必填：包含此标签的文章会自动分类到 /notes 导航栏
+  - research   # 可选：其他分类
+description: "这篇文章的简短摘要"
+featured: false # 是否在首页 Featured 栏目展示
+draft: false   # 为 true 时不会在线上发布
 ---
 ```
 
-### 本地预览与线上发布
-1. **本地预览**: 打开终端运行 `npm run dev`，在浏览器访问 `http://localhost:4321` 实时预览你的 Obsidian 笔记效果。
-2. **线上发布**: 运行 `git add .` -> `git commit -m "update"` -> `git push`，GitHub Actions 会自动构建并发布你的最新内容。
+---
+
+## 🚀 后续开发路线图 (Future Roadmap)
+
+为了打造一个顶级的求职/学术作品集，你可以从以下方向继续迭代：
+
+### 1. 动态个人名片展示 (Profile Card Pro)
+- 在左侧栏 Profile Card 下方增加一个 **“Status”** 小组件，通过脚本自动获取最新的 GitHub Activity 或目前的研究状态。
+
+### 2. 简历与学术成果 (CV & Publications)
+- **独立成果页**: 考虑建立 `src/pages/publications.astro`，使用 BibTeX 风格列出你的论文。
+- **PDF 预览**: 在 `/about` 页面通过 `<iframe>` 或专用组件直接嵌入并预览你的 PDF 简历。
+
+### 3. 互动增强
+- **Giscus 评论区**: 在文章底部开启基于 GitHub Issues 的评论系统，增强学术讨论氛围。
+- **搜索优化**: 目前已集成 PageFind，可以进一步美化搜索浮层的毛玻璃样式。
+
+### 4. 自动化与工具链
+- **AI 摘要生成**: 在 Obsidian 中使用插件自动为文章生成描述（Description），提升 SEO 效率。
+- **微信公众号/知乎同步**: 利用静态资源导出功能，实现多平台内容同步。
 
 ---
 
-## 🚀 后续可深化的设计与开发空间
-
-随着你的内容不断积累，这个博客还有很大的扩展空间，以下是一些建议的开发方向：
-
-### 1. 完善求职/申请展示 (Portfolio Enhancement)
-- **增加独立的 `/projects` 或 `/research` 页面**：
-  - 如果项目和论文增多，可以在首页导航栏新增一个 `Projects` 标签。
-  - 创建一个瀑布流或卡片阵列的页面，详细介绍每个项目（例如 `Geoprocess` 和 `stateful_interview_agent`）的代码仓库链接、论文 PDF 下载链接和架构图。
-- **添加简历下载按钮**：
-  - 在 `index.astro` 的 Hero 区域或 `/about` 页面，增加一个醒目的 **"Download CV"** 按钮，链接到存放于 `public/` 目录的 PDF 简历。
-
-### 2. 交互与读者互动
-- **引入评论系统 (Giscus / Utterances)**：
-  - AstroPaper 天然支持 Giscus。你可以通过配置 GitHub App，在博客底部引入评论区，让同行或访客可以与你交流探讨。*(参考 `src/data/blog/how-to-integrate-giscus-comments.md`)*
-- **全站搜索优化**：
-  - 目前内置了 PageFind 搜索，你可以进一步定制搜索结果的卡片 UI，使其支持按类别（文章/笔记）快速过滤。
-
-### 3. 自动化与基础设施建设
-- **Obsidian 自动化部署**：
-  - 在 Obsidian 内安装 **Obsidian Git** 插件，配置快捷键一键 Commit 和 Push，实现完全不离开 Obsidian 就能更新博客的丝滑体验。
-- **文章封面自动生成 (Dynamic OG Images)**：
-  - 当前主题支持根据标题动态生成社交分享封面。你可以修改 `src/pages/og.png.ts`，定制一张具有你个人品牌色彩和南京大学元素的默认 OG 图片模板。
-
-### 4. 视觉与品牌个性化
-- **定制主题色调**：
-  - 在 `src/styles/base.css` 中修改 `--color-accent`，可以将主题的高亮色改为你偏好的学术蓝或护眼绿。
-- **添加动态徽章**：
-  - 在首页的 About 区域，使用 GitHub Readme Stats 引入你的 GitHub 代码提交热图，展示你的开源活跃度。
-
----
-*Happy coding and writing! 祝你在科研与求职中一切顺利！*
+> “所有的代码都是为了更好的表达。” 祝你的科研与职场生涯如这个博客一般，简洁而华丽，沉稳而有力。 🎓🚀
