@@ -1,180 +1,92 @@
-# AstroPaper 📄
+# Wang Yubo (王昱博) - 个人博客与求职作品集
 
-![AstroPaper](public/astropaper-og.jpg)
-[![Figma](https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)](https://www.figma.com/community/file/1356898632249991861)
-![Typescript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
-![GitHub](https://img.shields.io/github/license/satnaing/astro-paper?color=%232F3741&style=for-the-badge)
-[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white&style=for-the-badge)](https://conventionalcommits.org)
-[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=for-the-badge)](http://commitizen.github.io/cz-cli/)
-
-AstroPaper is a minimal, responsive, accessible and SEO-friendly Astro blog theme. This theme is designed and crafted based on [my personal blog](https://satnaing.dev/blog).
-
-Read [the blog posts](https://astro-paper.pages.dev/posts/) or check [the README Documentation Section](#-documentation) for more info.
-
-## 🔥 Features
-
-- [x] type-safe markdown
-- [x] super fast performance
-- [x] accessible (Keyboard/VoiceOver)
-- [x] responsive (mobile ~ desktops)
-- [x] SEO-friendly
-- [x] light & dark mode
-- [x] fuzzy search
-- [x] draft posts & pagination
-- [x] sitemap & rss feed
-- [x] followed best practices
-- [x] highly customizable
-- [x] dynamic OG image generation for blog posts [#15](https://github.com/satnaing/astro-paper/pull/15) ([Blog Post](https://astro-paper.pages.dev/posts/dynamic-og-image-generation-in-astropaper-blog-posts/))
-
-_Note: I've tested screen-reader accessibility of AstroPaper using **VoiceOver** on Mac and **TalkBack** on Android. I couldn't test all other screen-readers out there. However, accessibility enhancements in AstroPaper should be working fine on others as well._
-
-## ✅ Lighthouse Score
-
-<p align="center">
-  <a href="https://pagespeed.web.dev/report?url=https%3A%2F%2Fastro-paper.pages.dev%2F&form_factor=desktop">
-    <img width="710" alt="AstroPaper Lighthouse Score" src="AstroPaper-lighthouse-score.svg">
-  </a>
-</p>
-
-## 🚀 Project Structure
-
-Inside of AstroPaper, you'll see the following folders and files:
-
-```bash
-/
-├── public/
-│   ├── pagefind/ # auto-generated when build
-│   ├── favicon.svg
-│   └── astropaper-og.jpg
-├── src/
-│   ├── assets/
-│   │   ├── icons/
-│   │   └── images/
-│   ├── components/
-│   ├── data/
-│   │   └── blog/
-│   │       └── some-blog-posts.md
-│   ├── layouts/
-│   ├── pages/
-│   ├── scripts/
-│   ├── styles/
-│   ├── utils/
-│   ├── config.ts
-│   ├── constants.ts
-│   ├── content.config.ts
-│   ├── env.d.ts
-│   └── remark-collapse.d.ts
-└── astro.config.ts
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-All blog posts are stored in `src/data/blog` directory.
-
-## 📖 Documentation
-
-Documentation can be read in two formats\_ _markdown_ & _blog post_.
-
-- Configuration - [markdown](src/data/blog/how-to-configure-astropaper-theme.md) | [blog post](https://astro-paper.pages.dev/posts/how-to-configure-astropaper-theme/)
-- Add Posts - [markdown](src/data/blog/adding-new-post.md) | [blog post](https://astro-paper.pages.dev/posts/adding-new-posts-in-astropaper-theme/)
-- Customize Color Schemes - [markdown](src/data/blog/customizing-astropaper-theme-color-schemes.md) | [blog post](https://astro-paper.pages.dev/posts/customizing-astropaper-theme-color-schemes/)
-- Predefined Color Schemes - [markdown](src/data/blog/predefined-color-schemes.md) | [blog post](https://astro-paper.pages.dev/posts/predefined-color-schemes/)
-
-## 💻 Tech Stack
-
-**Main Framework** - [Astro](https://astro.build/)  
-**Type Checking** - [TypeScript](https://www.typescriptlang.org/)  
-**Styling** - [TailwindCSS](https://tailwindcss.com/)  
-**UI/UX** - [Figma Design File](https://www.figma.com/community/file/1356898632249991861)  
-**Static Search** - [FuseJS](https://pagefind.app/)  
-**Icons** - [Tablers](https://tabler-icons.io/)  
-**Code Formatting** - [Prettier](https://prettier.io/)  
-**Deployment** - [Cloudflare Pages](https://pages.cloudflare.com/)  
-**Illustration in About Page** - [https://freesvgillustration.com](https://freesvgillustration.com/)  
-**Linting** - [ESLint](https://eslint.org)
-
-## 👨🏻‍💻 Running Locally
-
-You can start using this project locally by running the following command in your desired directory:
-
-```bash
-# pnpm
-pnpm create astro@latest --template satnaing/astro-paper
-
-# npm
-npm create astro@latest -- --template satnaing/astro-paper
-
-# yarn
-yarn create astro --template satnaing/astro-paper
-
-# bun
-bun create astro@latest -- --template satnaing/astro-paper
-```
-
-Then start the project by running the following commands:
-
-```bash
-# install dependencies if you haven't done so in the previous step.
-pnpm install
-
-# start running the project
-pnpm run dev
-```
-
-As an alternative approach, if you have Docker installed, you can use Docker to run this project locally. Here's how:
-
-```bash
-# Build the Docker image
-docker build -t astropaper .
-
-# Run the Docker container
-docker run -p 4321:80 astropaper
-```
-
-## Google Site Verification (optional)
-
-You can easily add your [Google Site Verification HTML tag](https://support.google.com/webmasters/answer/9008080#meta_tag_verification&zippy=%2Chtml-tag) in AstroPaper using an environment variable. This step is optional. If you don't add the following environment variable, the google-site-verification tag won't appear in the HTML `<head>` section.
-
-```bash
-# in your environment variable file (.env)
-PUBLIC_GOOGLE_SITE_VERIFICATION=your-google-site-verification-value
-```
-
-> See [this discussion](https://github.com/satnaing/astro-paper/discussions/334#discussioncomment-10139247) for adding AstroPaper to the Google Search Console.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-> **_Note!_** For `Docker` commands we must have it [installed](https://docs.docker.com/engine/install/) in your machine.
-
-| Command                              | Action                                                                                                                           |
-| :----------------------------------- | :------------------------------------------------------------------------------------------------------------------------------- |
-| `pnpm install`                       | Installs dependencies                                                                                                            |
-| `pnpm run dev`                       | Starts local dev server at `localhost:4321`                                                                                      |
-| `pnpm run build`                     | Build your production site to `./dist/`                                                                                          |
-| `pnpm run preview`                   | Preview your build locally, before deploying                                                                                     |
-| `pnpm run format:check`              | Check code format with Prettier                                                                                                  |
-| `pnpm run format`                    | Format codes with Prettier                                                                                                       |
-| `pnpm run sync`                      | Generates TypeScript types for all Astro modules. [Learn more](https://docs.astro.build/en/reference/cli-reference/#astro-sync). |
-| `pnpm run lint`                      | Lint with ESLint                                                                                                                 |
-| `docker compose up -d`               | Run AstroPaper on docker, You can access with the same hostname and port informed on `dev` command.                              |
-| `docker compose run app npm install` | You can run any command above into the docker container.                                                                         |
-| `docker build -t astropaper .`       | Build Docker image for AstroPaper.                                                                                               |
-| `docker run -p 4321:80 astropaper`   | Run AstroPaper on Docker. The website will be accessible at `http://localhost:4321`.                                             |
-
-> **_Warning!_** Windows PowerShell users may need to install the [concurrently package](https://www.npmjs.com/package/concurrently) if they want to [run diagnostics](https://docs.astro.build/en/reference/cli-reference/#astro-check) during development (`astro check --watch & astro dev`). For more info, see [this issue](https://github.com/satnaing/astro-paper/issues/113).
-
-## ✨ Feedback & Suggestions
-
-If you have any suggestions/feedback, you can contact me via [my email](mailto:contact@satnaing.dev). Alternatively, feel free to open an issue if you find bugs or want to request new features.
-
-## 📜 License
-
-Licensed under the MIT License, Copyright © 2025
+这是一个基于 **AstroPaper** 深度定制的个人博客与学术/求职主页。本项目不仅是一个静态博客，更是你展示学术科研成果、项目经历和日常学习笔记的核心数字枢纽。
 
 ---
 
-Made with 🤍 by [Sat Naing](https://satnaing.dev) 👨🏻‍💻 and [contributors](https://github.com/satnaing/astro-paper/graphs/contributors).
+## 🧭 代码结构与网站UI对应指南
+
+为了方便你后续进行个性化修改和开发，以下是当前代码库核心文件与网站页面实际效果的一一对应关系：
+
+### 1. 全局配置 (Global Settings)
+- **`src/config.ts`** ➡️ **全站基础设置**
+  - 控制网站的标题 (Title)、作者 (Author)、SEO 描述。
+  - 设置每页显示的文章数量 (`postPerPage`) 和明暗主题支持 (`lightAndDarkMode`)。
+- **`src/constants.ts`** ➡️ **社交链接与分享 (Social Links)**
+  - 控制首页和页脚显示的社交媒体图标（如 GitHub, X, ResearchGate 等）。
+
+### 2. 核心页面 (Pages & UI)
+- **`src/pages/index.astro`** ➡️ **网站首页 (Homepage)**
+  - 包含你的英文自我介绍（Hero 区域）。
+  - **Career Highlights** 模块：展示 Education (教育)、Projects (项目)、Research (科研) 的模块化卡片。
+  - Featured / Recent Posts 列表。
+- **`src/pages/about.md`** ➡️ **关于页面 (/about)**
+  - 你详细的中英文自我介绍、教育背景和研究兴趣列表。
+- **`src/components/Header.astro`** ➡️ **顶部导航栏 (Navbar)**
+  - 定义了全站顶部的导航菜单项（Posts, Notes, Tags, About 等）。
+- **`src/pages/notes.astro`** ➡️ **学习笔记聚合页 (/notes)**
+  - 自动抓取并展示所有包含 `notes` 标签（tag）的文章。
+
+### 3. 内容与文章 (Content)
+- **`src/data/blog/`** ➡️ **Markdown 存放目录**
+  - 这是所有文章、笔记存放的核心目录。你可以将其作为本地 Obsidian 库的目录，直接进行无缝写作。
+
+---
+
+## 📝 写作与发布指南 (结合 Obsidian)
+
+本博客采用 Markdown 驱动，非常适合与 Obsidian 联动。
+
+### 撰写新文章或笔记
+在 `src/data/blog/` 下创建 Markdown 文件。文件顶部必须包含 **YAML Frontmatter**：
+
+```yaml
+---
+title: "你的文章/笔记标题"
+pubDatetime: 2024-05-04T15:00:00Z  # 发布时间
+tags:
+  - notes      # ⭐️ 只要包含 notes 标签，就会自动进入顶部导航的 Notes 专栏
+  - ai         # 其他自定义分类标签
+description: "这篇文章的简短描述，会展示在列表页和用于 SEO。"
+featured: false # 如果设置为 true，将会在首页推荐展示
+draft: false   # 如果设置为 true，则仅在本地可见，不会线上发布
+---
+```
+
+### 本地预览与线上发布
+1. **本地预览**: 打开终端运行 `npm run dev`，在浏览器访问 `http://localhost:4321` 实时预览你的 Obsidian 笔记效果。
+2. **线上发布**: 运行 `git add .` -> `git commit -m "update"` -> `git push`，GitHub Actions 会自动构建并发布你的最新内容。
+
+---
+
+## 🚀 后续可深化的设计与开发空间
+
+随着你的内容不断积累，这个博客还有很大的扩展空间，以下是一些建议的开发方向：
+
+### 1. 完善求职/申请展示 (Portfolio Enhancement)
+- **增加独立的 `/projects` 或 `/research` 页面**：
+  - 如果项目和论文增多，可以在首页导航栏新增一个 `Projects` 标签。
+  - 创建一个瀑布流或卡片阵列的页面，详细介绍每个项目（例如 `Geoprocess` 和 `stateful_interview_agent`）的代码仓库链接、论文 PDF 下载链接和架构图。
+- **添加简历下载按钮**：
+  - 在 `index.astro` 的 Hero 区域或 `/about` 页面，增加一个醒目的 **"Download CV"** 按钮，链接到存放于 `public/` 目录的 PDF 简历。
+
+### 2. 交互与读者互动
+- **引入评论系统 (Giscus / Utterances)**：
+  - AstroPaper 天然支持 Giscus。你可以通过配置 GitHub App，在博客底部引入评论区，让同行或访客可以与你交流探讨。*(参考 `src/data/blog/how-to-integrate-giscus-comments.md`)*
+- **全站搜索优化**：
+  - 目前内置了 PageFind 搜索，你可以进一步定制搜索结果的卡片 UI，使其支持按类别（文章/笔记）快速过滤。
+
+### 3. 自动化与基础设施建设
+- **Obsidian 自动化部署**：
+  - 在 Obsidian 内安装 **Obsidian Git** 插件，配置快捷键一键 Commit 和 Push，实现完全不离开 Obsidian 就能更新博客的丝滑体验。
+- **文章封面自动生成 (Dynamic OG Images)**：
+  - 当前主题支持根据标题动态生成社交分享封面。你可以修改 `src/pages/og.png.ts`，定制一张具有你个人品牌色彩和南京大学元素的默认 OG 图片模板。
+
+### 4. 视觉与品牌个性化
+- **定制主题色调**：
+  - 在 `src/styles/base.css` 中修改 `--color-accent`，可以将主题的高亮色改为你偏好的学术蓝或护眼绿。
+- **添加动态徽章**：
+  - 在首页的 About 区域，使用 GitHub Readme Stats 引入你的 GitHub 代码提交热图，展示你的开源活跃度。
+
+---
+*Happy coding and writing! 祝你在科研与求职中一切顺利！*

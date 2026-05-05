@@ -18,10 +18,16 @@ const sortedPosts = getSortedPosts(posts);
 <Layout title={`Notes | ${SITE.title}`}>
   <Header />
   <Main pageTitle="Notes" pageDesc="My study notes and learning journey.">
-    <ul>
-      {sortedPosts.map(data => <Card {...data} />)}
+    <ul class="relative border-l border-border/50 ml-3 pl-6 sm:ml-4 sm:pl-8 space-y-2 py-4">
+      {sortedPosts.map(data => (
+        <div class="relative">
+          <!-- Timeline Dot -->
+          <div class="absolute -left-[31px] sm:-left-[39px] top-[40px] w-3 h-3 rounded-full bg-accent/30 border-2 border-background ring-1 ring-border/50 shadow-sm z-10"></div>
+          <Card {...data} />
+        </div>
+      ))}
     </ul>
-    {sortedPosts.length === 0 && <p class="py-8 italic">No notes found. Add "notes" tag to your posts to see them here.</p>}
+    {sortedPosts.length === 0 && <p class="py-8 italic opacity-70">No notes found. Add "notes" tag to your posts to see them here.</p>}
   </Main>
   <Footer />
 </Layout>

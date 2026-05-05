@@ -6,121 +6,214 @@ import Footer from "@/components/Footer.astro";
 import Socials from "@/components/Socials.astro";
 import LinkButton from "@/components/LinkButton.astro";
 import Card from "@/components/Card.astro";
+import Tag from "@/components/Tag.astro";
 import getSortedPosts from "@/utils/getSortedPosts";
+import getUniqueTags from "@/utils/getUniqueTags";
 import IconRss from "@/assets/icons/IconRss.svg";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
 import { SITE } from "@/config";
 import { SOCIALS } from "@/constants";
+import Heatmap from "@/components/Heatmap.astro";
 
 const posts = await getCollection("blog");
 
 const sortedPosts = getSortedPosts(posts);
 const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
 const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
+const allTags = getUniqueTags(posts);
 ---
 
 <Layout>
   <Header />
-  <main id="main-content" data-layout="index" class="app-layout">
-    <section id="hero" class:list={["pt-8 pb-6", "border-b border-border"]}>
-      <h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl">
-        Wang Yubo (王昱博)
-      </h1>
-      <a
-        target="_blank"
-        href="/rss.xml"
-        class="inline-block"
-        aria-label="rss feed"
-        title="RSS Feed"
-      >
-        <IconRss
-          width={20}
-          height={20}
-          class="scale-125 stroke-accent stroke-3 rtl:-rotate-90"
-        />
-        <span class="sr-only">RSS Feed</span>
-      </a>
+  <main id="main-content" data-layout="index" class="wide-layout pt-8 pb-6">
+    <!-- ========== Three-Column Grid ========== -->
+    <div class="grid grid-cols-1 gap-8 lg:grid-cols-[220px_1fr_240px]">
 
-      <p>
-        Hi 👋, I'm Wang Yubo, a Graduate Student at <b>Nanjing University</b> Major in Environmental Science.
-        I'm interested in interdisciplinary research combining AI and environmental systems.
-      </p>
-      <p class="mt-2">
-        Read more about me in the
-        <LinkButton
-          class="underline decoration-dashed underline-offset-4 hover:text-accent"
-          href="/about"
-        >
-          About
-        </LinkButton> section, or check out my recent blog posts below.
-      </p>
+      <!-- ========== LEFT SIDEBAR ========== -->
+      <aside class="hidden lg:block">
+        <div class="sticky top-24 space-y-6">
 
-      <!-- Career Highlights Section -->
-      <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <div class="rounded-lg border border-border p-4 transition-all hover:border-accent">
-          <h3 class="mb-2 text-lg font-bold text-accent">🎓 Education</h3>
-          <p class="text-sm">Graduate student at <b>Nanjing University</b>. Majoring in Environmental Science.</p>
+          <!-- Profile Card -->
+          <div class="rounded-2xl border border-border/40 bg-background/60 backdrop-blur-sm p-5 shadow-sm ring-1 ring-border/10">
+            <h2 class="text-lg font-bold tracking-tight">Wang Yubo</h2>
+            <p class="mt-1 text-xs opacity-70">王昱博</p>
+            <p class="mt-3 text-sm leading-relaxed opacity-80">
+              Graduate Student at Nanjing University. AI × Environment.
+            </p>
+            {
+              SOCIALS.length > 0 && (
+                <div class="mt-4 border-t border-border/30 pt-3">
+                  <Socials />
+                </div>
+              )
+            }
+          </div>
+
+          <!-- Directory / Navigation -->
+          <div class="rounded-2xl border border-border/40 bg-background/60 backdrop-blur-sm p-5 shadow-sm ring-1 ring-border/10">
+            <h3 class="mb-3 text-sm font-semibold uppercase tracking-wider opacity-60">Directory</h3>
+            <nav class="space-y-1.5">
+              <a href="/posts/" class="flex items-center justify-between rounded-lg px-3 py-2 text-sm transition-colors hover:bg-accent/5 hover:text-accent">
+                <span>📝 Posts</span>
+                <span class="text-xs opacity-50">{sortedPosts.length}</span>
+              </a>
+              <a href="/notes/" class="flex items-center justify-between rounded-lg px-3 py-2 text-sm transition-colors hover:bg-accent/5 hover:text-accent">
+                <span>📓 Notes</span>
+              </a>
+              <a href="/tags/" class="flex items-center justify-between rounded-lg px-3 py-2 text-sm transition-colors hover:bg-accent/5 hover:text-accent">
+                <span>🏷️ Tags</span>
+                <span class="text-xs opacity-50">{allTags.length}</span>
+              </a>
+              <a href="/about/" class="flex items-center justify-between rounded-lg px-3 py-2 text-sm transition-colors hover:bg-accent/5 hover:text-accent">
+                <span>👤 About</span>
+              </a>
+            </nav>
+          </div>
+
+          <!-- Categories / Tags Cloud -->
+          <div class="rounded-2xl border border-border/40 bg-background/60 backdrop-blur-sm p-5 shadow-sm ring-1 ring-border/10">
+            <h3 class="mb-3 text-sm font-semibold uppercase tracking-wider opacity-60">Categories</h3>
+            <ul class="flex flex-wrap gap-2">
+              {allTags.slice(0, 10).map(({ tag, tagName }) => (
+                <Tag tag={tag} tagName={tagName} size="sm" />
+              ))}
+            </ul>
+          </div>
+
         </div>
-        <div class="rounded-lg border border-border p-4 transition-all hover:border-accent">
-          <h3 class="mb-2 text-lg font-bold text-accent">🚀 Projects</h3>
-          <p class="text-sm">Passionate about <b>AI + Environment</b>. Developer of multiple open-source GIS and data tools.</p>
-        </div>
-        <div class="rounded-lg border border-border p-4 transition-all hover:border-accent">
-          <h3 class="mb-2 text-lg font-bold text-accent">🔬 Research</h3>
-          <p class="text-sm">Focusing on AI for Science and intelligent sensing systems for environmental monitoring.</p>
+      </aside>
+
+      <!-- ========== CENTER CONTENT ========== -->
+      <div class="min-w-0">
+        <!-- Hero Section -->
+        <section id="hero" class="relative pb-8 border-b border-border/30">
+          <!-- Ambient Background -->
+          <div class="pointer-events-none absolute -top-10 -left-10 h-72 w-72 rounded-full bg-accent/10 opacity-70 mix-blend-multiply blur-[80px] dark:bg-accent/20 dark:mix-blend-screen -z-10"></div>
+
+          <h1 class="my-4 inline-block text-3xl font-extrabold tracking-tight sm:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-foreground to-accent/80">
+            Wang Yubo (王昱博)
+          </h1>
+          <a target="_blank" href="/rss.xml" class="inline-block ml-2 align-middle" aria-label="rss feed" title="RSS Feed">
+            <IconRss width={18} height={18} class="stroke-accent stroke-3 rtl:-rotate-90" />
+          </a>
+
+          <p class="mt-2 text-sm leading-relaxed opacity-90">
+            Hi 👋, I'm a Graduate Student at <b>Nanjing University</b>, majoring in Environmental Science.
+            I'm interested in interdisciplinary research combining AI and environmental systems.
+          </p>
+          <p class="mt-2 text-sm leading-relaxed opacity-70">
+            Read more in the
+            <LinkButton class="underline decoration-dashed underline-offset-4 hover:text-accent" href="/about">About</LinkButton>
+            section, or check out my recent blog posts below.
+          </p>
+
+          <!-- Career Highlights -->
+          <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <div class="rounded-xl border border-border/30 bg-background/40 p-4 shadow-[0_0_0_1px_rgba(0,0,0,0.02)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-sm hover:border-accent/40">
+              <h3 class="mb-2 text-sm font-bold text-accent">🎓 Education</h3>
+              <p class="text-xs leading-relaxed opacity-80">Graduate at <b>Nanjing University</b>. Environmental Science.</p>
+            </div>
+            <div class="rounded-xl border border-border/30 bg-background/40 p-4 shadow-[0_0_0_1px_rgba(0,0,0,0.02)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-sm hover:border-accent/40">
+              <h3 class="mb-2 text-sm font-bold text-accent">🚀 Projects</h3>
+              <p class="text-xs leading-relaxed opacity-80"><b>AI + Environment</b>. Open-source GIS and data tools.</p>
+            </div>
+            <div class="rounded-xl border border-border/30 bg-background/40 p-4 shadow-[0_0_0_1px_rgba(0,0,0,0.02)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-sm hover:border-accent/40">
+              <h3 class="mb-2 text-sm font-bold text-accent">🔬 Research</h3>
+              <p class="text-xs leading-relaxed opacity-80">AI for Science. Intelligent sensing for environmental monitoring.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Featured Posts -->
+        {
+          featuredPosts.length > 0 && (
+            <section id="featured" class:list={["pt-8 pb-4", { "border-b border-border/30": recentPosts.length > 0 }]}>
+              <h2 class="text-xl font-semibold tracking-wide">Featured</h2>
+              <ul>
+                {featuredPosts.map(data => (
+                  <Card variant="h3" {...data} />
+                ))}
+              </ul>
+            </section>
+          )
+        }
+
+        <!-- Recent Posts -->
+        {
+          recentPosts.length > 0 && (
+            <section id="recent-posts" class="pt-8 pb-4">
+              <h2 class="text-xl font-semibold tracking-wide">Recent Posts</h2>
+              <ul>
+                {recentPosts.map(
+                  (data, index) =>
+                    index < SITE.postPerIndex && <Card variant="h3" {...data} />
+                )}
+              </ul>
+            </section>
+          )
+        }
+
+        <div class="my-6 text-center">
+          <LinkButton href="/posts/">
+            All Posts
+            <IconArrowRight class="inline-block rtl:-rotate-180" />
+          </LinkButton>
         </div>
       </div>
 
+      <!-- ========== RIGHT SIDEBAR ========== -->
+      <aside class="hidden lg:block">
+        <div class="sticky top-24 space-y-6">
+
+          <!-- Announcement -->
+          <div class="rounded-2xl border border-border/40 bg-background/60 backdrop-blur-sm p-5 shadow-sm ring-1 ring-border/10">
+            <h3 class="mb-2 text-sm font-semibold uppercase tracking-wider opacity-60">Announcement</h3>
+            <p class="text-sm leading-relaxed opacity-80">
+              Welcome to my blog! I share notes on AI, environmental science, and open-source tools.
+            </p>
+            <a href="/about/" class="mt-3 inline-block text-xs font-semibold text-accent hover:underline underline-offset-4">Learn More →</a>
+          </div>
+
+          <!-- Activity Heatmap (Compact) -->
+          <Heatmap />
+
+          <!-- Statistics -->
+          <div class="rounded-2xl border border-border/40 bg-background/60 backdrop-blur-sm p-5 shadow-sm ring-1 ring-border/10">
+            <h3 class="mb-3 text-sm font-semibold uppercase tracking-wider opacity-60">Statistics</h3>
+            <div class="space-y-3">
+              <div class="flex items-center justify-between text-sm">
+                <span class="opacity-70">Total Posts</span>
+                <span class="font-semibold text-accent">{sortedPosts.length}</span>
+              </div>
+              <div class="flex items-center justify-between text-sm">
+                <span class="opacity-70">Tags</span>
+                <span class="font-semibold text-accent">{allTags.length}</span>
+              </div>
+              <div class="flex items-center justify-between text-sm">
+                <span class="opacity-70">Featured</span>
+                <span class="font-semibold text-accent">{featuredPosts.length}</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </aside>
+
+    </div>
+
+    <!-- Mobile-only: Sidebars content collapsed below -->
+    <div class="mt-8 space-y-6 lg:hidden">
+      <Heatmap />
       {
-        // only display if at least one social link is enabled
         SOCIALS.length > 0 && (
-          <div class="mt-8 flex max-sm:flex-col sm:items-center">
-            <div class="me-2 mb-1 whitespace-nowrap sm:mb-0 text-sm font-semibold">Social Links:</div>
+          <div class="flex items-center gap-2">
+            <span class="text-sm font-semibold opacity-70">Social:</span>
             <Socials />
           </div>
         )
       }
-    </section>
-
-    {
-      featuredPosts.length > 0 && (
-        <section
-          id="featured"
-          class:list={[
-            "pt-12 pb-6",
-            { "border-b border-border": recentPosts.length > 0 },
-          ]}
-        >
-          <h2 class="text-2xl font-semibold tracking-wide">Featured</h2>
-          <ul>
-            {featuredPosts.map(data => (
-              <Card variant="h3" {...data} />
-            ))}
-          </ul>
-        </section>
-      )
-    }
-
-    {
-      recentPosts.length > 0 && (
-        <section id="recent-posts" class="pt-12 pb-6">
-          <h2 class="text-2xl font-semibold tracking-wide">Recent Posts</h2>
-          <ul>
-            {recentPosts.map(
-              (data, index) =>
-                index < SITE.postPerIndex && <Card variant="h3" {...data} />
-            )}
-          </ul>
-        </section>
-      )
-    }
-
-    <div class="my-8 text-center">
-      <LinkButton href="/posts/">
-        All Posts
-        <IconArrowRight class="inline-block rtl:-rotate-180" />
-      </LinkButton>
     </div>
+
   </main>
   <Footer />
 </Layout>

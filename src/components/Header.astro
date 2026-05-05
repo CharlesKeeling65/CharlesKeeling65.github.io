@@ -30,18 +30,16 @@ const isActive = (path: string) => {
   Skip to content
 </a>
 
-<header
-  class="app-layout flex flex-col items-center justify-between sm:flex-row"
->
-  <div
-    id="top-nav-wrap"
-    class:list={[
-      "py-4 sm:py-6",
-      "border-b border-border",
-      "relative w-full bg-background",
-      "flex items-baseline justify-between sm:items-center",
-    ]}
-  >
+<header class="sticky top-0 z-40 w-full backdrop-blur-md bg-background/70 border-b border-border/50 shadow-sm transition-all duration-300">
+  <div class="app-layout flex flex-col items-center justify-between sm:flex-row">
+    <div
+      id="top-nav-wrap"
+      class:list={[
+        "py-4 sm:py-6",
+        "relative w-full",
+        "flex items-baseline justify-between sm:items-center",
+      ]}
+    >
     <a
       href="/"
       class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none"
@@ -143,6 +141,7 @@ const isActive = (path: string) => {
         }
       </ul>
     </nav>
+  </div>
   </div>
 </header>
 
