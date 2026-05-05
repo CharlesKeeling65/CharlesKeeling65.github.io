@@ -42,7 +42,7 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
       </a>
 
       <p>
-        Hi 👋, I'm Wang Yubo, a Graduate Student at Nanjing University Major in Environmental Science.
+        Hi 👋, I'm Wang Yubo, a Graduate Student at <b>Nanjing University</b> Major in Environmental Science.
         I'm interested in interdisciplinary research combining AI and environmental systems.
       </p>
       <p class="mt-2">
@@ -54,11 +54,28 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
           About
         </LinkButton> section, or check out my recent blog posts below.
       </p>
+
+      <!-- Career Highlights Section -->
+      <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
+        <div class="rounded-lg border border-border p-4 transition-all hover:border-accent">
+          <h3 class="mb-2 text-lg font-bold text-accent">🎓 Education</h3>
+          <p class="text-sm">Graduate student at <b>Nanjing University</b>. Majoring in Environmental Science.</p>
+        </div>
+        <div class="rounded-lg border border-border p-4 transition-all hover:border-accent">
+          <h3 class="mb-2 text-lg font-bold text-accent">🚀 Projects</h3>
+          <p class="text-sm">Passionate about <b>AI + Environment</b>. Developer of multiple open-source GIS and data tools.</p>
+        </div>
+        <div class="rounded-lg border border-border p-4 transition-all hover:border-accent">
+          <h3 class="mb-2 text-lg font-bold text-accent">🔬 Research</h3>
+          <p class="text-sm">Focusing on AI for Science and intelligent sensing systems for environmental monitoring.</p>
+        </div>
+      </div>
+
       {
         // only display if at least one social link is enabled
         SOCIALS.length > 0 && (
-          <div class="mt-4 flex max-sm:flex-col sm:items-center">
-            <div class="me-2 mb-1 whitespace-nowrap sm:mb-0">Social Links:</div>
+          <div class="mt-8 flex max-sm:flex-col sm:items-center">
+            <div class="me-2 mb-1 whitespace-nowrap sm:mb-0 text-sm font-semibold">Social Links:</div>
             <Socials />
           </div>
         )
